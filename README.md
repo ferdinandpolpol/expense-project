@@ -1,7 +1,8 @@
 # expense-project
-
-<strong>Install modules through terminal:</strong><br>
 Download Node JS on: https://nodejs.org/en/download/ <br>
+
+
+<strong>On your terminal, go to the directory of the folder then proceed to install the following:</strong><br>
 Express JS:
 npm i express<br>
 Nodemon (Optional):
