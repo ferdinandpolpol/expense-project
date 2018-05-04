@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Expenses </title>
+        
+        <!-- Using Beauter.css library to create the UI -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="stylesheet" type="text/css" href="https://rawgit.com/outboxcraft/beauter/master/beauter.min.css"/>
+    </head>
+
+    <body>
+        <!-- Header -->
+        <div class = "row">
+            <div class = "col m12"><h1>Expenses</h1></div>
+            <ul class="breadcrumb _shadow">
+                <li><a href="#">Expenses List</a></li>
+                <li><a href="#">Add New Expense</a></li>
+                <li><a href="#">Search</a></li>
+            </ul>
+        </div>
+
+        <!-- Main -->
+        <div class = "row">
+            <!-- Expenses List -->
+            <div class = "col m9">
+                <table class = "_width100">
+                    <thead>
+                        <tr>
+                            <th>Expense ID</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% expenses.forEach(function(expense) { %>
+                        <tr>
+                            <td><%= expense.id %></td>
+                            <td><%= expense.amount %></td>
+                            <td><%= expense.description %></td>
+                            <td><%= expense.date %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add new expense -->
+            <div class = "col m3">
+                <form method="POST" id="addExpense">
+                    <fieldset>
+                        <legend>Add New Expense:</legend>
+                        <div class="col m6">
+                            <label for="description"> Description </label>
+                            <input class="_full-width" type="text" placeholder="Expense description" id="description" name="description" required>
+                        </div>
+                        <div class="col m6">
+                            <label for="amount"> Amount </label>
+                            <input class="_full-width" type="text" placeholder="Amount" id="amount" name="amount" required>
+                        </div>
+                        <div class="col m12">
+                                <label for="date"> Date </label>
+                                <input class="_full-width" type="date" id="date" name="date" required>
+                        </div>
+                        <input class="_primary button" type="submit" value="Submit">      
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+    </body>
+</html>

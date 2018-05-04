@@ -6,16 +6,18 @@ const bodyParser = require('body-parser');
 
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-app.use(express.json());
+//app.use(express.json());
+app.set('view engine', 'ejs');
 
 // Array to store expenses data
-const expenses = [];
+const expenses = [
+    { id: 1, description: "Expense 1", amount: 4000.00, date: Date.now()},
+    { id: 2, description: "Expense 2", amount: 1890.00, date: Date.now()},
+];
 
 app.get('/', (req, res) => {
-    fs.readFile(__dirname + '/views/index.html', 'utf8', (err, data) => {
-        if(err) throw err;
-        res.end(data);
-    });
+    console.log(expenses);
+    res.render('index', {expenses: expenses});
 });
 
 // Create Web Server
