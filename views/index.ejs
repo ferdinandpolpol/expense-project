@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<style>
+#header{
+    text-color
+}
+</style>
+
 <html>
     <head>
         <title> Expenses </title>
@@ -12,18 +18,13 @@
     <body>
         <!-- Header -->
         <div class = "row">
-            <div class = "col m12"><h1>Expenses</h1></div>
-            <ul class="breadcrumb _shadow">
-                <li><a href="#">Expenses List</a></li>
-                <li><a href="#">Add New Expense</a></li>
-                <li><a href="#">Search</a></li>
-            </ul>
+            <div class = "col m12" id="header"><h1>Expenses Ledger</h1></div>
         </div>
 
         <!-- Main -->
-        <div class = "row">
+        <div class = "row" style="padding: 0 5% 0 5%">
             <!-- Expenses List -->
-            <div class = "col m9">
+            <div class = "col m12" id = "expenseList">
                 <table class = "_width100">
                     <thead>
                         <tr>
@@ -35,21 +36,49 @@
                     </thead>
 
                     <tbody>
+                        <% var totalExpenses = 0; %>
                         <% expenses.forEach(function(expense) { %>
                         <tr>
                             <td><%= expense.id %></td>
-                            <td><%= expense.amount %></td>
+                            <td>PHP <%= expense.amount %></td>
                             <td><%= expense.description %></td>
                             <td><%= expense.date %></td>
+                            <% totalExpenses += expense.amount; %>
                         </tr>
                         <% }); %>
+                        <tr>
+                            <td colspan = "3" style="text-align:right">Total Expense:</td>
+                            <td>PHP <%= totalExpenses %></td>
+                        </tr>
                     </tbody>
                 </table>
+
+                <button class="accordion _box _shadow _dark">Add New Expense</button>
+                <div class="-panel">
+                    <form method="POST" id="addExpense" action="/">
+                        <fieldset>
+                            <legend>Add New Expense:</legend>
+                            <div class="col m3">
+                                <label for="amount"> Amount </label>
+                                <input class="_full-width" type="text" placeholder="PHP" id="amount" name="amount" required>
+                            </div>
+                            <div class="col m6">
+                                    <label for="description"> Description </label>
+                                    <input class="_full-width" type="text" placeholder="Expense description" id="description" name="description" required>
+                            </div>
+                            <div class="col m3">
+                                    <label for="date"> Date </label>
+                                    <input class="_full-width" type="date" id="date" name="date" required>
+                            </div>
+                            <input class="_primary button" type="submit" value="Submit"> 
+                        </fieldset>
+                    </form>
+                </div>
             </div>
 
             <!-- Add new expense -->
-            <div class = "col m3">
-                <form method="POST" id="addExpense">
+            <!--<div class = "col m3">
+                <form method="POST" id="addExpense" action="/">
                     <fieldset>
                         <legend>Add New Expense:</legend>
                         <div class="col m6">
@@ -58,7 +87,7 @@
                         </div>
                         <div class="col m6">
                             <label for="amount"> Amount </label>
-                            <input class="_full-width" type="text" placeholder="Amount" id="amount" name="amount" required>
+                            <input class="_full-width" type="text" placeholder="PHP" id="amount" name="amount" required>
                         </div>
                         <div class="col m12">
                                 <label for="date"> Date </label>
@@ -67,9 +96,9 @@
                         <input class="_primary button" type="submit" value="Submit">      
                     </fieldset>
                 </form>
-            </div>
+            </div>-->
         </div>
 
-
+    <script src="https://rawgit.com/outboxcraft/beauter/master/beauter.min.js"></script>
     </body>
 </html>
