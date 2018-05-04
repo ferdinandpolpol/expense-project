@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <style>
-#header{
-    text-color
+/* from w3schools https://www.w3schools.com/howto/howto_js_filter_table.asp*/
+#search {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#expenseList {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+
+#expenseList th, #expenseList td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#expenseList tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd; 
+}
+
+#expenseList tr.header, #expenseList tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
 }
 </style>
+
 
 <html>
     <head>
@@ -23,6 +54,9 @@
 
         <!-- Main -->
         <div class = "row" style="padding: 0 5% 0 5%">
+            <!-- Searchbar --> 
+            <input type="text" id="search" onkeyup="search()" placeholder="Search Expense Description...">
+
             <!-- Expenses List -->
             <div class = "col m12" id = "expenseList">
                 <table class = "_width100">
@@ -47,8 +81,8 @@
                         </tr>
                         <% }); %>
                         <tr>
-                            <td colspan = "3" style="text-align:right">Total Expense:</td>
-                            <td>PHP <%= totalExpenses %></td>
+                            <td style="text-align:right"><strong>Total Expense:</strong></td>
+                            <td id = "totalExpense" colspan= "3">PHP <%= totalExpenses %></td>
                         </tr>
                     </tbody>
                 </table>
@@ -76,29 +110,39 @@
                 </div>
             </div>
 
-            <!-- Add new expense -->
-            <!--<div class = "col m3">
-                <form method="POST" id="addExpense" action="/">
-                    <fieldset>
-                        <legend>Add New Expense:</legend>
-                        <div class="col m6">
-                            <label for="description"> Description </label>
-                            <input class="_full-width" type="text" placeholder="Expense description" id="description" name="description" required>
-                        </div>
-                        <div class="col m6">
-                            <label for="amount"> Amount </label>
-                            <input class="_full-width" type="text" placeholder="PHP" id="amount" name="amount" required>
-                        </div>
-                        <div class="col m12">
-                                <label for="date"> Date </label>
-                                <input class="_full-width" type="date" id="date" name="date" required>
-                        </div>
-                        <input class="_primary button" type="submit" value="Submit">      
-                    </fieldset>
-                </form>
-            </div>-->
+            
         </div>
-
+    
     <script src="https://rawgit.com/outboxcraft/beauter/master/beauter.min.js"></script>
+    <script>
+        // Code from w3schools https://www.w3schools.com/howto/howto_js_filter_table.asp
+        function search() {
+            var input, filter, table, tr, td, i;
+
+            // Calculate total expense of the search results
+            var totalExpense = 0.0;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("expenseList");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+
+                        // Split the previous td element with a space
+                        var amount = td.previousElementSibling.innerHTML.split(" ");
+                        // Parse the 2nd index of the element into float then Add
+                        totalExpense += parseFloat(amount[1]);
+                        // Display the current totalExpense
+                        document.getElementById("totalExpense").innerHTML = "PHP " + totalExpense;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+    </script>
     </body>
 </html>
